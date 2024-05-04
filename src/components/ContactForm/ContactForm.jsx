@@ -1,7 +1,10 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useId } from "react";
-import { nanoid } from "nanoid";
+
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
+
 import css from "./ContactForm.module.css";
 
 // Валідація полів форми
@@ -19,7 +22,9 @@ const FeedbackSchema = Yup.object().shape({
     .required("Required"),
 });
 
-export default function ContactForm({ onAdd }) {
+export default function ContactForm() {
+  const dispatch = useDispatch();
+
   const nameFieldId = useId(); // Створення ідентифікаторів
   const phoneFieldId = useId(); // поліив форми
 
@@ -30,11 +35,7 @@ export default function ContactForm({ onAdd }) {
   };
 
   const handleSubmit = (values, actions) => {
-    onAdd({
-      id: nanoid(), // Пакет для генерації ідентифікаторів
-      name: values.name,
-      number: values.phone,
-    });
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
