@@ -1,7 +1,8 @@
 import Contact from "../Contact/Contact";
+
 import { useSelector } from "react-redux";
-import { getContacts } from "../../redux/selectots";
-import { getSearchQuery } from "../../redux/selectots";
+import { getContacts, getSearchQuery } from "../../redux/selectots";
+
 import css from "./ContactList.module.css";
 
 export default function ContactList() {
@@ -9,7 +10,7 @@ export default function ContactList() {
 
   const valueSearch = useSelector(getSearchQuery);
 
-  const visibleContacts = contacts.filter((contact) =>
+  const visibleContacts = contacts.items.filter((contact) =>
     contact.name.toLowerCase().includes(valueSearch.name.toLowerCase())
   );
 
